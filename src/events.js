@@ -27,7 +27,7 @@ export class HttpEventsResource {
     const { offset } = params
     let qs = ''
 
-    if (offset) {
+    if (!isNaN(offset)) {
       qs = `?offset=${offset}`
     }
 
@@ -48,11 +48,11 @@ export class HttpEventsResource {
 
     qsParts.push(`direction=${direction}`)
 
-    if (after) {
+    if (!isNaN(after)) {
       qsParts.push(`after=${after}`)
     }
 
-    if (before) {
+    if (!isNaN(before)) {
       qsParts.push(`before=${before}`)
     }
 
