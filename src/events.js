@@ -24,12 +24,18 @@ export class HttpEventsResource {
     }
   }
   getState (audience, roomId, params = {}) {
-    const { offset } = params
-    let qs = ''
+    const { offset, direction } = params
+    const qsParts = []
 
     if (!isNaN(offset)) {
-      qs = `?offset=${offset}`
+      qsParts.push(`offset=${offset}`)
     }
+
+    if (~['forward', 'backward'].indexOf(direction)) {
+      qsParts.push(`direction=${direction}`)
+    }
+
+    const qs = qsParts.length ? `?${qsParts.join('&')}` : ''
 
     return this.tokenProvider.getToken()
       .then((token) =>
