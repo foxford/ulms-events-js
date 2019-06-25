@@ -24,7 +24,7 @@ export class HttpEventsResource {
     }
   }
   getState (audience, roomId, params = {}) {
-    const { offset, direction } = params
+    const { after, before, direction, offset } = params
     const qsParts = []
 
     if (!isNaN(offset)) {
@@ -33,6 +33,14 @@ export class HttpEventsResource {
 
     if (~['forward', 'backward'].indexOf(direction)) {
       qsParts.push(`direction=${direction}`)
+    }
+
+    if (!isNaN(after)) {
+      qsParts.push(`after=${after}`)
+    }
+
+    if (!isNaN(before)) {
+      qsParts.push(`before=${before}`)
     }
 
     const qs = qsParts.length ? `?${qsParts.join('&')}` : ''
