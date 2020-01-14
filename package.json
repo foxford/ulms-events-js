@@ -2,6 +2,16 @@
   "name": "@ulms/events",
   "version": "0.2.0",
   "description": "JavaScript API-client for uLMS Events service",
+  "homepage": "https://github.com/netology-group/ulms-events-js#readme",
+  "bugs": {
+    "url": "https://github.com/netology-group/ulms-events-js/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/netology-group/ulms-events-js.git"
+  },
+  "license": "MIT",
+  "author": "netology-group",
   "files": [
     "es",
     "lib"
@@ -9,34 +19,35 @@
   "main": "lib/index.js",
   "module": "es/index.js",
   "scripts": {
-    "build": "npm run build:es && npm run build:lib",
-    "build:es": "BABEL_ENV=es babel src -d es",
-    "build:lib": "BABEL_ENV=lib babel src -d lib",
-    "lint": "eslint .",
     "prebuild": "rm -rf es lib",
+    "build": "npm run build:es && npm run build:lib",
+    "build:es": "BABEL_ENV=es babel src --config-file ./.babelrc.json -d es",
+    "build:lib": "BABEL_ENV=lib babel src --config-file ./.babelrc.json -d lib",
+    "lint": "eslint .",
     "prepublishOnly": "npm run test && npm run build",
-    "test": "eslint ."
+    "tap": "tap --node-arg=--require=./test/babel-register.js",
+    "tapas": "npm run tap \"test/**/*.test.js\"",
+    "test": "eslint . && npm run tapas"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/netology-group/ulms-events-js.git"
-  },
-  "author": "netology-group",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/netology-group/ulms-events-js/issues"
-  },
-  "homepage": "https://github.com/netology-group/ulms-events-js#readme",
+  "dependencies": {},
   "devDependencies": {
     "@babel/cli": "~7.2.3",
     "@babel/core": "~7.2.2",
+    "@babel/plugin-proposal-class-properties": "^7.7.4",
+    "@babel/plugin-transform-block-scoping": "^7.7.4",
     "@babel/preset-env": "~7.3.1",
+    "@babel/register": "^7.7.7",
+    "@netology-group/account": "^2.5.1",
+    "babel-plugin-annotate-pure-calls": "^0.4.0",
+    "debug": "^4.1.1",
     "eslint": "~5.12.1",
     "eslint-config-standard": "~12.0.0",
     "eslint-plugin-import": "~2.15.0",
     "eslint-plugin-node": "~8.0.1",
     "eslint-plugin-promise": "~4.0.1",
-    "eslint-plugin-standard": "~4.0.0"
-  },
-  "dependencies": {}
+    "eslint-plugin-standard": "~4.0.0",
+    "fetch-mock": "^8.3.1",
+    "isomorphic-fetch": "^2.2.1",
+    "tap": "^12.4.0"
+  }
 }
