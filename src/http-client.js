@@ -26,14 +26,14 @@ export class FetchHttpClient {
     return this
   }
   get (url, config) {
-    return this.__fetch(url, {
+    return this.__fetch.call(null, url, {
       method: 'GET',
       headers: config.headers
     })
       .then(FetchHttpClient._processResponse)
   }
   post (url, data, config) {
-    return this.__fetch(url, {
+    return this.__fetch.call(null, url, {
       method: 'POST',
       headers: config.headers,
       body: JSON.stringify(data)
@@ -41,7 +41,7 @@ export class FetchHttpClient {
       .then(FetchHttpClient._processResponse)
   }
   patch (url, data, config) {
-    return this.__fetch(url, {
+    return this.__fetch.call(null, url, {
       method: 'PATCH',
       headers: config.headers,
       body: JSON.stringify(data)
@@ -49,7 +49,7 @@ export class FetchHttpClient {
       .then(FetchHttpClient._processResponse)
   }
   delete (url, data, config) {
-    return this.__fetch(url, {
+    return this.__fetch.call(null, url, {
       method: 'DELETE',
       headers: config.headers,
       body: JSON.stringify(data)
