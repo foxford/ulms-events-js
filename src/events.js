@@ -34,9 +34,17 @@ export class HttpEventsResource {
     httpClient,
     tokenProvider
   ) {
-    this.baseUrl = `${host}/${endpoint}`
-    this.httpClient = httpClient
-    this.tokenProvider = tokenProvider
+    if (typeof endpoint === 'string') {
+      // TODO: deprecate complex url later
+      this.baseUrl = `${host}/${endpoint}`
+      this.httpClient = httpClient
+      this.tokenProvider = tokenProvider
+    } else {
+      // bypass solid url on instantiation
+      this.baseUrl = `${host}`
+      this.httpClient = endpoint
+      this.tokenProvider = httpClient
+    }
   }
   static _headers (token, params = {}) {
     const { randomId } = params
