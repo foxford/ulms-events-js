@@ -124,6 +124,34 @@ export class HttpEventsResource {
         )
       )
   }
+  createReaction (audience, roomId, type, eventId, data, params = {}) {
+    const { randomId } = params
+
+    return this.tokenProvider.getToken()
+      .then((token) =>
+        this.httpClient.post(
+          `${this.baseUrl}/${audience}/rooms/${roomId}/events/${type}/${eventId}/reaction`,
+          data,
+          {
+            headers: HttpEventsResource._headers(token, { randomId })
+          }
+        )
+      )
+  }
+  deleteReaction (audience, roomId, type, eventId, data, params = {}) {
+    const { randomId } = params
+
+    return this.tokenProvider.getToken()
+      .then((token) =>
+        this.httpClient.delete(
+          `${this.baseUrl}/${audience}/rooms/${roomId}/events/${type}/${eventId}/reaction`,
+          data,
+          {
+            headers: HttpEventsResource._headers(token, { randomId })
+          }
+        )
+      )
+  }
   createNotification (audience, roomId, type, data, params = {}) {
     const { randomId } = params
 

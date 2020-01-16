@@ -31,10 +31,11 @@ export class FetchHttpClient {
     })
       .then(FetchHttpClient._processResponse)
   }
-  delete (url, config) {
+  delete (url, data, config) {
     return fetch(url, {
       method: 'DELETE',
-      headers: config.headers
+      headers: config.headers,
+      body: JSON.stringify(data)
     })
       .then(FetchHttpClient._processResponse)
   }
