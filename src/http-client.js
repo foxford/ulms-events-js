@@ -2,12 +2,18 @@
 
 export class FetchHttpClient {
   static _processResponse (response) {
-    if (response.status === 200) return response.json()
     if (response.status === 204) return Promise.resolve()
+    if (/^2\d{2}/.test(response.status)) return response.json()
 
     if (/^4\d{2}/.test(response.status)) {
       return response.json().then((a) => {
         return Promise.reject(a)
+      })
+    }
+
+    if (/^3\d{2}/.test(response.status)) {
+      return response.text().then((a) => {
+        return Promise.resolve(a)
       })
     }
 
