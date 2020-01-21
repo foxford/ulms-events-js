@@ -97,7 +97,8 @@ export class HttpEventsResource {
       lastId,
       page,
       roomId,
-      type
+      type,
+      url
     } = opts
 
     if (!audience) return Promise.reject(new TypeError('`audience` is absent'))
@@ -113,6 +114,7 @@ export class HttpEventsResource {
       lastId && qsParts.push(`last_id=${lastId}`)
       type && qsParts.push(`type=${type}`)
       page && qsParts.push(`page=${page}`)
+      url && qsParts.push(`url=${url}`)
 
       qsParts.push(`audience=${audience}`)
       qsParts.push(`room_id=${roomId}`)
@@ -121,11 +123,10 @@ export class HttpEventsResource {
     return this._token()
       .then((token) => {
         const qs = qsParts.length ? `?${qsParts.join('&')}` : ''
-
-        const url = new URL(`${this.baseUrl}/${audience}/rooms/${roomId}/events${qs}`)
+        const addr = new URL(`${this.baseUrl}/${audience}/rooms/${roomId}/events${qs}`)
 
         return this.httpClient.get(
-          url.href,
+          addr.href,
           {
             headers: HttpEventsResource._headers(token)
           }

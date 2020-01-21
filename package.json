@@ -1,6 +1,6 @@
 {
   "name": "@ulms/events",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "JavaScript API-client for uLMS Events service",
   "homepage": "https://github.com/netology-group/ulms-events-js",
   "bugs": {
